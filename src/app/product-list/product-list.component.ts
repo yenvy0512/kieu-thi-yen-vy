@@ -1,47 +1,47 @@
-import { Component, OnInit,Input } from '@angular/core';
-import{Product} from '../Product';
-import { NgModel } from '@angular/forms';
-import{Data} from '../MockData'
-// import{ProductService}from '../product.service'
-@Component({
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../product.service';
 
+import { Product } from '../Product';
+@Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-@Input('data') product: Product;
+  selected: Product;
+  products: Product[];
+
   constructor(
-     // privice productService: ProductService
-  ) 
-  // console.log('contructor')
-  { 
-   
+    private productService: ProductService
+  ) { 
+    console.log('constructor')
   }
 
   ngOnInit(): void {
-    // this.getProducts();
+    this.getProducts();
+  }
+ 
+  getProducts(){
+    this.products = this.productService.getProducts();
+  }
+  removeItem(id){
+    this.products = this.productService.removeProduct(id);
+    // this.products = this.products.filter(product => product.id != id);
   }
 
-products=Data;
-
-selected: Product;
 
 
-changeStatus(){
-// this.product.status=!this.product.status;
-}
-changeName(e){
-  // this.product.name=e.target.value
-
-}
-removeItem(id: number){
-  // this.products=this.products.filter(product => product.id !=id);
-
-
-}
-showDetail(product){
-this.selected=product;
-console.log(this.selected);
-}
+  // changeStatus(){
+  //   // this.product.status = !this.product.status;
+  // }
+  // changeName(e){
+  //   // this.product.name = e.target.value;
+  // }
+  // removeItem(id){
+  //   this.products = this.products.filter(product => product.id != id);
+  // }
+  // showDetail(product){
+  //   console.log(product);
+  //   this.selected = product;
+  // }
 }
